@@ -1,0 +1,63 @@
+The casino has introduced a new game in which there are M vertical chutes each containing N single digit (possibly zero) numbers.
+You can choose any chute and draw the bottom number and when you do this all the other numbers in the chute descend by one slot.
+You need to build the largest integer using this process drawing all the numbers from the chutes.
+For example, in the following example,
+we have three chutes of four numbers each and the largest number that can be drawn is 469534692781.
+Given the number of chutes and the numbers in each chute, write a program to find the largest integer
+that could be formed using the above process.
+to find the largest integer that could be formed using the above process.
+
+Constraints
+1 <= M <= 20, 1 <= N <= 50
+
+Input Format
+First line contains M,N two comma separated integers giving the number of chutes and the number of digits in each chute
+The next M lines each contain N comma separated digits, giving the digits from top to bottom in each of the chutes.
+
+Output
+One line containing the largest integer that could be formed.
+
+TestCase 1
+4,4
+
+7,5,5,2
+
+3,6,1,7
+
+8,7,0,4
+
+8,7,3,9
+
+
+
+9743782557163078
+
+TestCase 2
+2,3
+
+1,2,3
+
+2,4,6
+
+643221
+
+
+//Code
+m, n = map(int, input().strip().split(","))
+a = []
+for i in range(m):
+    a.append(list(map(int, input().strip().split(","))))
+high = [0]*m
+for i in range(m):
+    high[i] = a[i][-1]
+ans = []
+for i in range(m*n):
+    h = max(high)
+    ans.append(str(h))
+    if len(a[high.index(h)]) != 0:
+        a[high.index(h)].pop()
+        if len(a[high.index(h)]) == 0:
+            high[high.index(h)] = -1
+        else:
+            high[high.index(h)] = a[high.index(h)][-1]
+print("".join(ans))
